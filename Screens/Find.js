@@ -6,10 +6,69 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  FlatList,
 } from "react-native";
 import Footer from "../Components/Footer";
 import { Ionicons } from "@expo/vector-icons";
+import ImageCard from "../Components/ImageCard";
+
+const placesData = [
+  {
+    id: 1,
+    name: "Ladakh",
+    price: "₹15,000/person",
+    image: require("../assets/IndiaImages/Ladakh.jpg"),
+    genre: "Adventure",
+    desc: "",
+  },
+  {
+    id: 2,
+    name: "Delhi",
+    price: "₹15,000/person",
+    image: require("../assets/IndiaImages/Delhi.jpg"),
+    genre: "",
+    desc: "",
+  },
+  {
+    id: 3,
+    name: "Utarakhand",
+    price: "₹15,000/person",
+    image: require("../assets/IndiaImages/Uttarakhand.jpg"),
+    genre: "",
+    desc: "",
+  },
+  {
+    id: 4,
+    name: "Agra",
+    price: "₹15,000/person",
+    image: require("../assets/IndiaImages/Agra.png"),
+    genre: "",
+    desc: "",
+  },
+  {
+    id: 5,
+    name: "Jaipur",
+    price: "₹15,000/person",
+    image: require("../assets/IndiaImages/Jaipur.jpg"),
+    genre: "",
+    desc: "",
+  },
+  {
+    id: 6,
+    name: "Punjab",
+    price: "₹15,000/person",
+    image: require("../assets/IndiaImages/Punjab.jpg"),
+    genre: "",
+    desc: "",
+  },
+  {
+    id: 7,
+    name: "Jaisalmer",
+    price: "₹15,000/person",
+    image: require("../assets/IndiaImages/Jaisalmer.jpg"),
+    genre: "",
+    desc: "",
+  },
+];
 
 const Find = () => {
   return (
@@ -27,24 +86,31 @@ const Find = () => {
           showsHorizontalScrollIndicator={false}
         >
           <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>Asia</Text>
+            <Text style={styles.continentText}>Tourist Attractions</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>Africa</Text>
+            <Text style={styles.continentText}>Hidden Gems</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>North America</Text>
+            <Text style={styles.continentText}>Close to Nature</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>South America</Text>
+            <Text style={styles.continentText}>Adventure Activities</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>Europe</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>Australia</Text>
+            <Text style={styles.continentText}>Sit back and Relax</Text>
           </TouchableOpacity>
         </ScrollView>
+        <View style={styles.ContinentCardContainer}>
+          {placesData.map((item) => (
+            <ImageCard
+              key={item.id}
+              name={item.name}
+              price={item.price}
+              image={item.image}
+            />
+          ))}
+        </View>
       </ScrollView>
       <Footer />
     </SafeAreaView>
@@ -88,5 +154,12 @@ const styles = StyleSheet.create({
   continentText: {
     fontSize: 16,
     paddingHorizontal: 20,
+  },
+  ContinentCardContainer: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 40,
+    gap: 10,
   },
 });

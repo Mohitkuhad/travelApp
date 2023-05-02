@@ -7,7 +7,7 @@ import {
   Touchable,
 } from "react-native";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/Home/1.jpg")} />
@@ -20,7 +20,12 @@ const Home = () => {
           hassle and enjoy it.
         </Text>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("Find");
+            }}
+          >
             <Text style={styles.buttonText}>Get Started</Text>
           </TouchableOpacity>
         </View>
@@ -77,8 +82,8 @@ const styles = StyleSheet.create({
     borderRadius: "100%",
   },
   bgGradient: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    zIndex: '-1'
+    zIndex: "-1",
   },
 });

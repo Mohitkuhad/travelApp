@@ -1,5 +1,6 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { BlurView } from "expo-blur";
+import { useNavigation } from "@react-navigation/native";
 
 //Icons
 import { Entypo } from "@expo/vector-icons";
@@ -13,23 +14,25 @@ import { FontAwesome } from "@expo/vector-icons";
 //<FontAwesome name="user" size={24} color="black" />
 
 const Footer = () => {
+  const navigation = useNavigation();
+
   return (
     <BlurView
       style={styles.Container}
-      tint="default"
-      intensity={10}
-      blurRadius={50}
+      tint="dark"
+      intensity={30}
+      blurRadius={5}
     >
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Find")}>
         <Feather name="home" size={25} color="white" />
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Ionicons name="ios-navigate-circle-outline" size={25} color="white" />
+      <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+        <Ionicons name="search" size={25} color="white" />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Liked")}>
         <Entypo name="heart-outlined" size={25} color="white" />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
         <FontAwesome name="user-o" size={25} color="white" />
       </TouchableOpacity>
     </BlurView>

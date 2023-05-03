@@ -8,10 +8,12 @@ import {
   ScrollView,
 } from "react-native";
 import Footer from "../Components/Footer";
-import { Ionicons } from "@expo/vector-icons";
-import ImageCard from "../Components/ImageCard";
 
-const placesData = [
+import { Entypo } from "@expo/vector-icons";
+import ImageCard from "../Components/ImageCard";
+import Drawer from "../Components/Drawer";
+
+const placesData2 = [
   {
     id: 1,
     name: "Ladakh",
@@ -73,11 +75,12 @@ const placesData = [
 const Find = () => {
   return (
     <SafeAreaView style={styles.Container}>
+      <Drawer />
       <ScrollView>
         <View style={styles.HeroContainer}>
           <Text style={styles.H1}>Find your{"\n"}favourite place</Text>
           <TouchableOpacity style={styles.notificationButton}>
-            <Ionicons name="notifications-outline" size={24} color="black" />
+            <Entypo name="menu" size={30} color="black" />
           </TouchableOpacity>
         </View>
         <ScrollView
@@ -102,7 +105,7 @@ const Find = () => {
           </TouchableOpacity>
         </ScrollView>
         <View style={styles.ContinentCardContainer}>
-          {placesData.map((item) => (
+          {placesData2.map((item) => (
             <ImageCard
               key={item.id}
               name={item.name}
@@ -135,9 +138,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   notificationButton: {
-    padding: 15,
-    backgroundColor: "#D6D6D6",
-    borderRadius: "100%",
+    
   },
   ContinentContainer: {
     marginTop: 18,

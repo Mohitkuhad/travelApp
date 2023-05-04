@@ -8,74 +8,18 @@ import {
   ScrollView,
 } from "react-native";
 import Footer from "../Components/Footer";
-
+import placeData from "../data/placeData";
+import placeData2 from "../data/placeData2";
 import { Entypo } from "@expo/vector-icons";
 import ImageCard from "../Components/ImageCard";
-import Drawer from "../Components/Drawer";
 
-const placesData2 = [
-  {
-    id: 1,
-    name: "Ladakh",
-    price: "₹15,000/person",
-    image: require("../assets/IndiaImages/Ladakh.jpg"),
-    genre: "Adventure",
-    desc: "",
-  },
-  {
-    id: 2,
-    name: "Delhi",
-    price: "₹15,000/person",
-    image: require("../assets/IndiaImages/Delhi.jpg"),
-    genre: "",
-    desc: "",
-  },
-  {
-    id: 3,
-    name: "Utarakhand",
-    price: "₹15,000/person",
-    image: require("../assets/IndiaImages/Uttarakhand.jpg"),
-    genre: "",
-    desc: "",
-  },
-  {
-    id: 4,
-    name: "Agra",
-    price: "₹15,000/person",
-    image: require("../assets/IndiaImages/Agra.png"),
-    genre: "",
-    desc: "",
-  },
-  {
-    id: 5,
-    name: "Jaipur",
-    price: "₹15,000/person",
-    image: require("../assets/IndiaImages/Jaipur.jpg"),
-    genre: "",
-    desc: "",
-  },
-  {
-    id: 6,
-    name: "Punjab",
-    price: "₹15,000/person",
-    image: require("../assets/IndiaImages/Punjab.jpg"),
-    genre: "",
-    desc: "",
-  },
-  {
-    id: 7,
-    name: "Jaisalmer",
-    price: "₹15,000/person",
-    image: require("../assets/IndiaImages/Jaisalmer.jpg"),
-    genre: "",
-    desc: "",
-  },
-];
+
+
+
 
 const Find = () => {
   return (
     <SafeAreaView style={styles.Container}>
-      <Drawer />
       <ScrollView>
         <View style={styles.HeroContainer}>
           <Text style={styles.H1}>Find your{"\n"}favourite place</Text>
@@ -105,12 +49,13 @@ const Find = () => {
           </TouchableOpacity>
         </ScrollView>
         <View style={styles.ContinentCardContainer}>
-          {placesData2.map((item) => (
+          {placeData.map((item) => (
             <ImageCard
               key={item.id}
               name={item.name}
               price={item.price}
-              image={item.image}
+              image={item.converImage}
+              selectedPlace={item.id}
             />
           ))}
         </View>

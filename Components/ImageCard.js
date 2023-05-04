@@ -3,11 +3,11 @@ import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const ImageCard = ({ name, price, image }) => {
+const ImageCard = ({ selectedPlace, name, price, image }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.Container}>
-      <Image style={styles.Image} source={image} />
+      <Image style={styles.Image} source={{uri : image}} />
       <TouchableOpacity style={styles.Like}>
         <Entypo name="heart-outlined" size={20} color="white" />
       </TouchableOpacity>
@@ -15,7 +15,14 @@ const ImageCard = ({ name, price, image }) => {
         <Text style={styles.H1}>{name}</Text>
         <Text style={styles.H2}>{price}</Text>
       </View>
-      <TouchableOpacity style={styles.More} onPress={() => {navigation.navigate("Place")}}>
+      <TouchableOpacity
+        style={styles.More}
+        onPress={() => {
+          navigation.navigate("Place", {
+            id: selectedPlace,
+          });
+        }}
+      >
         <Feather name="arrow-up-right" size={24} color="black" />
       </TouchableOpacity>
     </View>

@@ -7,62 +7,46 @@ import {
   StyleSheet,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import { useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import placeData from "../data/placeData";
-
-const toDoData = [
-  {
-    id: 1,
-    name: "Red Fort",
-    image: require("../assets/IndiaImages/Redfort.webp"),
-    genre: "Tourist",
-  },
-  {
-    id: 2,
-    name: "India Gate",
-    image: require("../assets/IndiaImages/Indiagate.jpeg"),
-    genre: "Tourist",
-  },
-  {
-    id: 3,
-    name: "Akshardham",
-    image: require("../assets/IndiaImages/Akshardham.jpg"),
-    genre: "Tourist",
-  },
-  {
-    id: 4,
-    name: "Paramotoring",
-    image: require("../assets/IndiaImages/Paramotoring.jpeg"),
-    genre: "Adventure",
-  },
-  {
-    id: 5,
-    name: "Go Karting",
-    image: require("../assets/IndiaImages/GoKarting.jpeg"),
-    genre: "Adventure",
-  },
-  {
-    id: 6,
-    name: "Ice Skating",
-    image: require("../assets/IndiaImages/IceSkating.jpg"),
-    genre: "Adventure",
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { liked, unliked } from "../store/LikeSlice";
+import { useState } from "react";
 
 const PlaceInfo = () => {
+  const [filtered, setFiltered] = useState(false);
+  const [filteredData, setFilteredData] = useState(null);
+
   const route = useRoute();
-  const selectedId = route.params.id
+  const selectedId = route.params.id;
 
   const selectedPlaceData = placeData.find((item) => item.id === selectedId);
-  const todoData = selectedPlaceData.todoData
+  const todoData = selectedPlaceData.todoData;
+  //console.log(todoData)
 
+  const dispatch = useDispatch();
+  const likedPlaces = useSelector((state) => state.like.liked);
+  const isLiked = likedPlaces.includes(selectedPlaceData.name);
+
+  const handleLike = () => {
+    if (isLiked) {
+      dispatch(unliked(selectedPlaceData.name));
+    } else {
+      dispatch(liked(selectedPlaceData.name));
+    }
+  };
+
+  const handleFilter = (genre) => {
+    setFilteredData(todoData.filter((type) => type.genre == genre));
+    setFiltered(true);
+    return filteredData;
+  };
 
   return (
     <ScrollView style={styles.Container}>
       <View style={styles.Hero}>
         <Image
-          source={{uri: selectedPlaceData.converImage}}
+          source={{ uri: selectedPlaceData.converImage }}
           style={styles.HeroImage}
         />
         <Image
@@ -71,8 +55,12 @@ const PlaceInfo = () => {
         />
         <View style={styles.HeroText}>
           <Text style={styles.HeroH1}>{selectedPlaceData.name}</Text>
-          <TouchableOpacity style={styles.Like}>
-            <Entypo name="heart-outlined" size={20} color="white" />
+          <TouchableOpacity style={styles.Like} onPress={() => handleLike()}>
+            <Entypo
+              name={isLiked ? "heart" : "heart-outlined"}
+              size={20}
+              color={isLiked ? "red" : "white"}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -83,30 +71,61 @@ const PlaceInfo = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
         >
-          <TouchableOpacity style={styles.ActivityButton}>
+          <TouchableOpacity
+            style={styles.ActivityButton}
+            onPress={() => {
+              setFiltered(false)
+            }}
+          >
+            <Text style={styles.ActivityText}>All</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.ActivityButton}
+            onPress={() => {
+              handleFilter("Tourist");
+            }}
+          >
             <Text style={styles.ActivityText}>Tourist Attractions</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.ActivityButton}>
+
+          <TouchableOpacity
+            style={styles.ActivityButton}
+            onPress={() => {
+              handleFilter("Hidden");
+            }}
+          >
             <Text style={styles.ActivityText}>Hidden Gems</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.ActivityButton}>
-            <Text style={styles.ActivityText}>Close to Nature</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.ActivityButton}>
+
+          <TouchableOpacity
+            style={styles.ActivityButton}
+            onPress={() => {
+              handleFilter("Adventure");
+            }}
+          >
             <Text style={styles.ActivityText}>Adventure Activities</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.ActivityButton}>
-            <Text style={styles.ActivityText}>Sit back and Relax</Text>
-          </TouchableOpacity>
         </ScrollView>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {todoData.map((item) => (
-            <View style={styles.toDoContainer} key={item.id}>
-              <Image source={{uri: item.image}} style={styles.toDoImage} />
-              <Text style={styles.toDoText}>{item.name}</Text>
-            </View>
-          ))}
-        </ScrollView>
+        {!filtered ? (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {todoData.map((item) => (
+              <View style={styles.toDoContainer} key={item.id}>
+                <Image source={{ uri: item.image }} style={styles.toDoImage} />
+                <Text style={styles.toDoText}>{item.name}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        ) : (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {filteredData.map((item) => (
+              <View style={styles.toDoContainer} key={item.id}>
+                <Image source={{ uri: item.image }} style={styles.toDoImage} />
+                <Text style={styles.toDoText}>{item.name}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        )}
       </View>
       <Text style={styles.price}>₹ 15,000/person</Text>
       <TouchableOpacity style={styles.bookButton}>
@@ -119,7 +138,6 @@ const PlaceInfo = () => {
 export default PlaceInfo;
 
 const styles = StyleSheet.create({
-  Container: {},
   HeroImage: {
     width: "100%",
     height: 300,

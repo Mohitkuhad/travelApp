@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Provider } from "react-redux";
 
 import Home from "./Screens/Home";
 import Find from "./Screens/Find";
@@ -7,13 +8,15 @@ import Search from "./Screens/Search";
 import Liked from "./Screens/Liked";
 import Profile from "./Screens/Profile";
 import PlaceInfo from "./Screens/PlaceInfo";
+import store from "./store/store";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Find">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={Home}
@@ -50,7 +53,7 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="Place"
+          name="More Info"
           component={PlaceInfo}
           options={{
             headerShown: false,
@@ -59,5 +62,6 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }

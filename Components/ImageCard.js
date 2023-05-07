@@ -2,14 +2,31 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { liked, unliked } from "../store/LikeSlice";
+
+
 
 const ImageCard = ({ selectedPlace, name, price, image }) => {
+
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const likedPlaces = useSelector((state) => state.like.liked)
+  const isLiked = likedPlaces.includes(name)
+
+  const handleLike = () => {
+    if (isLiked) {
+      dispatch(unliked(name))
+    } else {
+      dispatch(liked(name))
+    }
+  }
+
   return (
     <View style={styles.Container}>
       <Image style={styles.Image} source={{uri : image}} />
-      <TouchableOpacity style={styles.Like}>
-        <Entypo name="heart-outlined" size={20} color="white" />
+      <TouchableOpacity style={styles.Like} onPress={() => handleLike()}>
+        <Entypo name={isLiked? "heart" :"heart-outlined"} size={20} color={isLiked? "red" : "white"} />
       </TouchableOpacity>
       <View style={styles.Country}>
         <Text style={styles.H1}>{name}</Text>
@@ -18,7 +35,7 @@ const ImageCard = ({ selectedPlace, name, price, image }) => {
       <TouchableOpacity
         style={styles.More}
         onPress={() => {
-          navigation.navigate("Place", {
+          navigation.navigate("More Info", {
             id: selectedPlace,
           });
         }}

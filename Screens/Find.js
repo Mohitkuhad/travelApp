@@ -9,11 +9,8 @@ import {
 } from "react-native";
 import Footer from "../Components/Footer";
 import placeData from "../data/placeData";
-import placeData2 from "../data/placeData2";
 import { Entypo } from "@expo/vector-icons";
 import ImageCard from "../Components/ImageCard";
-
-
 
 
 
@@ -27,27 +24,6 @@ const Find = () => {
             <Entypo name="menu" size={30} color="black" />
           </TouchableOpacity>
         </View>
-        <ScrollView
-          style={styles.ContinentContainer}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        >
-          <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>Tourist Attractions</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>Hidden Gems</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>Close to Nature</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>Adventure Activities</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.continentButton}>
-            <Text style={styles.continentText}>Sit back and Relax</Text>
-          </TouchableOpacity>
-        </ScrollView>
         <View style={styles.ContinentCardContainer}>
           {placeData.map((item) => (
             <ImageCard

@@ -118,9 +118,10 @@ const PlaceInfo = () => {
 
   const handleBook = () => {
     if (isBooked) {
-      dispatch(canceled(selectedPlaceData.name));
-    } else {
-      dispatch(booked(selectedPlaceData.name));
+      dispatch(canceled(selectedPlaceData.name))
+      } else {
+        dispatch(booked(selectedPlaceData.name));
+        schedulePushNotification()
     }
   }
 
@@ -131,7 +132,7 @@ const PlaceInfo = () => {
         body: `${selectedPlaceData.name} is waiting for your visit.`,
         data: { data: "Enjoy your trip" },
       },
-      trigger: { seconds: 5 },
+      trigger: { seconds: 2 },
     });
   }
 

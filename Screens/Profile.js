@@ -36,6 +36,7 @@ const SearchCardsData = [
 
 const Profile = ({ navigation }) => {
   const likedPlacesObj = useSelector((state) => state.like);
+  const bookings = useSelector((state) => state.book)
   
   return (
     <SafeAreaView style={styles.Container}>
@@ -54,13 +55,13 @@ const Profile = ({ navigation }) => {
               onPress={() => navigation.navigate("Liked")}
             >
               <Text style={styles.milestoneNumber}>{likedPlacesObj.liked.length}</Text>
-              <Text style={styles.milestoneText}>Liked</Text>
+              <Text>Liked</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.milestone}
               onPress={() => navigation.navigate("Find")}
             >
-              <Text style={styles.milestoneNumber}>0</Text>
+              <Text style={styles.milestoneNumber}>{bookings.bookings.length}</Text>
               <Text>Bookings</Text>
             </TouchableOpacity>
           </View>

@@ -5,16 +5,17 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  Platform
+  Platform,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import placeData from "../data/placeData";
 import { useDispatch, useSelector } from "react-redux";
 import { liked, unliked } from "../store/LikeSlice";
+import { booked, canceled } from "../store/BookingSlice";
 import { useState, useEffect, useRef } from "react";
 import * as Notifications from "expo-notifications";
-import * as Device from 'expo-device'
+import * as Device from "expo-device";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -98,6 +99,9 @@ const PlaceInfo = () => {
   const likedPlaces = useSelector((state) => state.like.liked);
   const isLiked = likedPlaces.includes(selectedPlaceData.name);
 
+  const bookedPlaces = useSelector((state) => state.book.bookings);
+  const isBooked = bookedPlaces.includes(selectedPlaceData.name);
+
   const handleLike = () => {
     if (isLiked) {
       dispatch(unliked(selectedPlaceData.name));
@@ -111,6 +115,14 @@ const PlaceInfo = () => {
     setFiltered(true);
     return filteredData;
   };
+
+  const handleBook = () => {
+    if (isBooked) {
+      dispatch(canceled(selectedPlaceData.name));
+    } else {
+      dispatch(booked(selectedPlaceData.name));
+    }
+  }
 
   async function schedulePushNotification() {
     await Notifications.scheduleNotificationAsync({
@@ -211,11 +223,11 @@ const PlaceInfo = () => {
       <Text style={styles.price}>₹ 15,000/person</Text>
       <TouchableOpacity
         style={styles.bookButton}
-        onPress={async () => {
-          await schedulePushNotification();
-        }}
+        onPress={
+          () => handleBook()
+        }
       >
-        <Text style={styles.bookText}>Book Now</Text>
+        <Text style={styles.bookText}>{!isBooked? ('Book Now') : ('Cancel Booking')}</Text>
       </TouchableOpacity>
     </ScrollView>
   );

@@ -22,7 +22,6 @@ const PlaceInfo = () => {
 
   const selectedPlaceData = placeData.find((item) => item.id === selectedId);
   const todoData = selectedPlaceData.todoData;
-  //console.log(todoData)
 
   const dispatch = useDispatch();
   const likedPlaces = useSelector((state) => state.like.liked);

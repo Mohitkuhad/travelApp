@@ -9,6 +9,7 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import Footer from "../Components/Footer";
 import SearchCards from "../Components/SearchCards";
+import { useSelector } from "react-redux";
 
 const SearchCardsData = [
   {
@@ -34,6 +35,8 @@ const SearchCardsData = [
 ];
 
 const Profile = ({ navigation }) => {
+  const likedPlacesObj = useSelector((state) => state.like);
+  
   return (
     <SafeAreaView style={styles.Container}>
       <ScrollView>
@@ -50,7 +53,7 @@ const Profile = ({ navigation }) => {
               style={styles.milestone}
               onPress={() => navigation.navigate("Liked")}
             >
-              <Text style={styles.milestoneNumber}>0</Text>
+              <Text style={styles.milestoneNumber}>{likedPlacesObj.liked.length}</Text>
               <Text style={styles.milestoneText}>Liked</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -58,7 +61,7 @@ const Profile = ({ navigation }) => {
               onPress={() => navigation.navigate("Find")}
             >
               <Text style={styles.milestoneNumber}>0</Text>
-              <Text style={styles.milestoneText}>Bookings</Text>
+              <Text>Bookings</Text>
             </TouchableOpacity>
           </View>
         </View>

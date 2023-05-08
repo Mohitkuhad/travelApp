@@ -6,9 +6,12 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 import SearchCards from "../Components/SearchCards";
 import Footer from "../Components/Footer";
+import placeData from "../data/placeData";
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const SearchCardsData = [
   {
@@ -34,6 +37,37 @@ const SearchCardsData = [
 ];
 
 const Search = () => {
+  const [search, setSearch] = useState("");
+  const [newData, setNewData] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const navigation = useNavigation();
+
+  const searchFilter = (text) => {
+    if (text) {
+      const newData = placeData.filter((item) => {
+        const itemData = item.name ? item.name.toUpperCase() : "".toUpperCase();
+        const textData = text.toUpperCase();
+        setSearching(true);
+        return itemData.indexOf(textData) > -1;
+      });
+      setNewData(newData);
+      setSearch(text);
+    } else {
+      setNewData(newData);
+      setSearch(text);
+    }
+  };
+
+  const handleClick = () => {
+    if (searching) {
+      setSearching(false);
+      setSearch("");
+      this.textInput.clear()
+    } else {
+      setSearching(true);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.Container}>
       <Text style={styles.H1}>Find You Dream{"\n"}Destination</Text>
@@ -42,16 +76,39 @@ const Search = () => {
           placeholder="Search"
           placeholderTextColor="#000000"
           style={styles.Input}
+          onChangeText={(text) => searchFilter(text)}
+          ref={input => { this.textInput = input }}
         />
-        <TouchableOpacity>
-          <Ionicons name="search" size={24} color="black" />
+        <TouchableOpacity onPress={() => handleClick()}>
+          {!searching ? (
+            <Ionicons name="search" size={24} color="black" />
+          ) : (
+            <Entypo name="cross" size={24} color="black" />
+          )}
         </TouchableOpacity>
       </View>
-      <View style={styles.SearchCardContainer}>
-        {SearchCardsData.map((item) => (
-          <SearchCards key={item.id} name={item.name} image={item.image} />
-        ))}
-      </View>
+      {!searching ? (
+        <View style={styles.SearchCardContainer}>
+          {SearchCardsData.map((item) => (
+            <SearchCards key={item.id} name={item.name} image={item.image} />
+          ))}
+        </View>
+      ) : (
+        <View style={styles.searchSuggestionsContainer}>
+          {newData.map((item) => (
+            <TouchableOpacity
+              style={styles.searchSuggestions}
+              onPress={() => {
+                navigation.navigate("More Info", {
+                  id: item.id,
+                });
+              }}
+            >
+              <Text style={styles.searchSuggestionsText}>{item.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
       <Footer />
     </SafeAreaView>
   );
@@ -77,7 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 20,
     marginHorizontal: 10,
-    marginTop: 10,
+    marginVertical: 10,
     borderWidth: 1,
     borderRadius: "100%",
   },
@@ -90,5 +147,20 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     gap: 10,
+  },
+  searchSuggestionsContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
+  searchSuggestions: {
+    width: "90%",
+    height: 50,
+    borderBottomWidth: 1,
+    borderBottomColor: "#D0D0D0",
+    justifyContent: "center",
+  },
+  searchSuggestionsText: {
+    fontSize: 20,
+    fontWeight: "400",
   },
 });

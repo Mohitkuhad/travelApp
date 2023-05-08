@@ -15,53 +15,53 @@ export default function App() {
 
   return (
     <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Find"
-          component={Find}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Search"
-          component={Search}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Liked"
-          component={Liked}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="More Info"
-          component={PlaceInfo}
-          options={{
-            headerShown: false,
-            presentation: "modal",
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Search">
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Find"
+            component={Find}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Search"
+            component={Search}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Liked"
+            component={Liked}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="More Info"
+            component={PlaceInfo}
+            options={{
+              headerShown: false,
+              presentation: "modal",
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }

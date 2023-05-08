@@ -13,6 +13,7 @@ import placeData from "../data/placeData";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
+
 const SearchCardsData = [
   {
     id: 1,

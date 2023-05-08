@@ -5,17 +5,88 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Platform
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import placeData from "../data/placeData";
 import { useDispatch, useSelector } from "react-redux";
 import { liked, unliked } from "../store/LikeSlice";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import * as Notifications from "expo-notifications";
+import * as Device from 'expo-device'
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
+async function registerForPushNotificationsAsync() {
+  let token;
+
+  if (Platform.OS === "android") {
+    await Notifications.setNotificationChannelAsync("default", {
+      name: "default",
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: "#FF231F7C",
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== "granted") {
+      alert("Failed to get push token for push notification!");
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert("Must use physical device for Push Notifications");
+  }
+
+  return token;
+}
 
 const PlaceInfo = () => {
   const [filtered, setFiltered] = useState(false);
   const [filteredData, setFilteredData] = useState(null);
+  const [expoPushToken, setExpoPushToken] = useState("");
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
+
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
+
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   const route = useRoute();
   const selectedId = route.params.id;
@@ -40,6 +111,17 @@ const PlaceInfo = () => {
     setFiltered(true);
     return filteredData;
   };
+
+  async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Congratulations for your upcoming trip",
+        body: `${selectedPlaceData.name} is waiting for your visit.`,
+        data: { data: "Enjoy your trip" },
+      },
+      trigger: { seconds: 5 },
+    });
+  }
 
   return (
     <ScrollView style={styles.Container}>
@@ -73,7 +155,7 @@ const PlaceInfo = () => {
           <TouchableOpacity
             style={styles.ActivityButton}
             onPress={() => {
-              setFiltered(false)
+              setFiltered(false);
             }}
           >
             <Text style={styles.ActivityText}>All</Text>
@@ -127,7 +209,12 @@ const PlaceInfo = () => {
         )}
       </View>
       <Text style={styles.price}>₹ 15,000/person</Text>
-      <TouchableOpacity style={styles.bookButton}>
+      <TouchableOpacity
+        style={styles.bookButton}
+        onPress={async () => {
+          await schedulePushNotification();
+        }}
+      >
         <Text style={styles.bookText}>Book Now</Text>
       </TouchableOpacity>
     </ScrollView>

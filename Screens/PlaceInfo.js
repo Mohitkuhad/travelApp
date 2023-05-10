@@ -5,7 +5,6 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  Platform,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
@@ -13,83 +12,36 @@ import placeData from "../data/placeData";
 import { useDispatch, useSelector } from "react-redux";
 import { liked, unliked } from "../store/LikeSlice";
 import { booked, canceled } from "../store/BookingSlice";
-import { useState, useEffect, useRef } from "react";
-import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
-import db from "../Firebase";
-import { collection, getDocs} from 'firebase/firestore'
+import { useState } from "react";
+import emailjs from "emailjs-com";
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
+function sendConfirmationEmail(name, email, destination) {
+  const templateParams = {
+    to_name: name,
+    to_email: email,
+    destination: destination,
+  };
 
-async function registerForPushNotificationsAsync() {
-  let token;
-
-  if (Platform.OS === "android") {
-    await Notifications.setNotificationChannelAsync("default", {
-      name: "default",
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: "#FF231F7C",
-    });
-  }
-
-  if (Device.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert("Must use physical device for Push Notifications");
-  }
-
-  return token;
+  emailjs
+    .send(
+      "service_cnx0ylg",
+      "template_7ymugr8",
+      templateParams,
+      "6WeiBNfq4bJ3EireN"
+    )
+    .then(
+      (result) => {
+        alert("Confirmation Email Sent");
+      },
+      (error) => {
+        alert(error.text);
+      }
+    );
 }
 
 const PlaceInfo = () => {
   const [filtered, setFiltered] = useState(false);
   const [filteredData, setFilteredData] = useState(null);
-  const [expoPushToken, setExpoPushToken] = useState("");
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
-
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification);
-      });
-
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-      });
-
-    return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current
-      );
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
 
   const route = useRoute();
   const selectedId = route.params.id;
@@ -103,6 +55,9 @@ const PlaceInfo = () => {
 
   const bookedPlaces = useSelector((state) => state.book.bookings);
   const isBooked = bookedPlaces.includes(selectedPlaceData.name);
+
+  const user = useSelector((state) => state.user);
+  const userEmail = user.user.email;
 
   const handleLike = () => {
     if (isLiked) {
@@ -123,24 +78,9 @@ const PlaceInfo = () => {
       dispatch(canceled(selectedPlaceData.name));
     } else {
       dispatch(booked(selectedPlaceData.name));
-      db.collection("Bookings").doc("user").set({
-        name: selectedPlaceData.name,
-        date: new Date().toLocaleDateString(),
-      });
-      schedulePushNotification();
+      sendConfirmationEmail("User", userEmail, selectedPlaceData.name);
     }
   };
-
-  async function schedulePushNotification() {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Congratulations for your upcoming trip",
-        body: `${selectedPlaceData.name} is waiting for your visit.`,
-        data: { data: "Enjoy your trip" },
-      },
-      trigger: { seconds: 2 },
-    });
-  }
 
   return (
     <ScrollView style={styles.Container}>

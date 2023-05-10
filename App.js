@@ -9,6 +9,7 @@ import Liked from "./Screens/Liked";
 import Profile from "./Screens/Profile";
 import PlaceInfo from "./Screens/PlaceInfo";
 import store from "./store/store";
+import Login from "./Screens/Login";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -16,10 +17,17 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Home"
             component={Home}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
             options={{
               headerShown: false,
             }}

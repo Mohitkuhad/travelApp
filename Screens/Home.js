@@ -23,7 +23,7 @@ const Home = ({ navigation }) => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              navigation.navigate("Find");
+              navigation.navigate("Login");
             }}
           >
             <Text style={styles.buttonText}>Get Started</Text>

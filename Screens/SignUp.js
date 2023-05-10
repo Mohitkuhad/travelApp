@@ -1,60 +1,46 @@
 import {
   SafeAreaView,
   Text,
-  TouchableOpacity,
   TextInput,
+  TouchableOpacity,
   StyleSheet,
+  Image,
   View,
   Button,
-  Image,
 } from "react-native";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import auth from "../Firebase";
 import {
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
+  createUserWithEmailAndPassword,
+  updateCurrentUser,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { login } from "../store/UserSlice";
-import { useNavigation } from "@react-navigation/native";
-//import ToastManager, { Toast } from 'toastify-react-native'
 
-const Login = () => {
+const SignUp = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const handleClick = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        const user = auth().currentUser;
+        user.updateProfile({
+          displayName: Name,
+        });
+        console.log(user);
         dispatch(login(user));
         navigation.navigate("Find");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorMessage);
+        console.log(errorMessage);
       });
   };
-
-  const handlePasswordReset = () => {
-    if (!email == "") {
-      sendPasswordResetEmail(auth, email)
-        .then(() => {
-          alert("Password reset email sent!");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          alert(errorMessage);
-        });
-    } else {
-      alert("Please enter your email address!");
-    }
-  };
-
   return (
     <>
       <Image
@@ -63,8 +49,16 @@ const Login = () => {
       />
       <SafeAreaView style={styles.Container}>
         <View>
-          <Text style={styles.h1}>Welcome Back</Text>
-          <Text style={styles.h2}>Login to access your account</Text>
+          <Text style={styles.h1}>Welcome</Text>
+          <Text style={styles.h2}>Create your account now</Text>
+          <TextInput
+            style={styles.inputContainer}
+            placeholder="Name"
+            placeholderTextColor={"white"}
+            onChangeText={(text) => {
+              setName(text);
+            }}
+          />
           <TextInput
             style={styles.inputContainer}
             placeholder="Email"
@@ -83,24 +77,18 @@ const Login = () => {
             }}
           />
           <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.forgotButton}
-              onPress={handlePasswordReset}
-            >
-              <Text style={styles.forgotText}>Forgot Password?</Text>
-            </TouchableOpacity>
             <TouchableOpacity style={styles.loginButton} onPress={handleClick}>
-              <Text style={styles.loginText}>Login</Text>
+              <Text style={styles.loginText}>Sign Up</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.createContainer}>
-            <Text style={styles.createText}>New to Travel App?</Text>
+            <Text style={styles.createText}>Already have an account?</Text>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("SignUp");
+                navigation.navigate("Login");
               }}
             >
-              <Text style={styles.createButtonText}>Create an account</Text>
+              <Text style={styles.createButtonText}>Login</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -109,7 +97,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
 
 const styles = StyleSheet.create({
   Container: {

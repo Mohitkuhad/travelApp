@@ -10,6 +10,7 @@ import Profile from "./Screens/Profile";
 import PlaceInfo from "./Screens/PlaceInfo";
 import store from "./store/store";
 import Login from "./Screens/Login";
+import SignUp from "./Screens/SignUp";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -17,7 +18,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Find">
           <Stack.Screen
             name="Home"
             component={Home}
@@ -28,6 +29,13 @@ export default function App() {
           <Stack.Screen
             name="Login"
             component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
             options={{
               headerShown: false,
             }}

@@ -38,7 +38,6 @@ const Profile = ({ navigation }) => {
   const likedPlacesObj = useSelector((state) => state.like);
   const bookings = useSelector((state) => state.book)
   const user = useSelector((state) => state.user)
-  console.log(user.user.email)
   
   return (
     <SafeAreaView style={styles.Container}>
@@ -46,7 +45,7 @@ const Profile = ({ navigation }) => {
         <View style={styles.Hero}>
           <View style={styles.userNameContainer}>
             <FontAwesome name="user-circle-o" size={60} color="#808080" />
-            <Text style={styles.UserName}>{user.user.email}</Text>
+            <Text style={styles.UserName}>{user.user?.email}</Text>
             <TouchableOpacity style={styles.editButton}>
               <Text>Edit Profile</Text>
             </TouchableOpacity>

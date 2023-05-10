@@ -16,6 +16,8 @@ import { booked, canceled } from "../store/BookingSlice";
 import { useState, useEffect, useRef } from "react";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
+import db from "../Firebase";
+import { collection, getDocs} from 'firebase/firestore'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -118,12 +120,16 @@ const PlaceInfo = () => {
 
   const handleBook = () => {
     if (isBooked) {
-      dispatch(canceled(selectedPlaceData.name))
-      } else {
-        dispatch(booked(selectedPlaceData.name));
-        schedulePushNotification()
+      dispatch(canceled(selectedPlaceData.name));
+    } else {
+      dispatch(booked(selectedPlaceData.name));
+      db.collection("Bookings").doc("user").set({
+        name: selectedPlaceData.name,
+        date: new Date().toLocaleDateString(),
+      });
+      schedulePushNotification();
     }
-  }
+  };
 
   async function schedulePushNotification() {
     await Notifications.scheduleNotificationAsync({
@@ -222,13 +228,10 @@ const PlaceInfo = () => {
         )}
       </View>
       <Text style={styles.price}>₹ 15,000/person</Text>
-      <TouchableOpacity
-        style={styles.bookButton}
-        onPress={
-          () => handleBook()
-        }
-      >
-        <Text style={styles.bookText}>{!isBooked? ('Book Now') : ('Cancel Booking')}</Text>
+      <TouchableOpacity style={styles.bookButton} onPress={() => handleBook()}>
+        <Text style={styles.bookText}>
+          {!isBooked ? "Book Now" : "Cancel Booking"}
+        </Text>
       </TouchableOpacity>
     </ScrollView>
   );

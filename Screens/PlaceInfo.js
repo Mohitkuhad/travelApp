@@ -12,8 +12,10 @@ import placeData from "../data/placeData";
 import { useDispatch, useSelector } from "react-redux";
 import { liked, unliked } from "../store/LikeSlice";
 import { booked, canceled } from "../store/BookingSlice";
-import { useState } from "react";
 import emailjs from "emailjs-com";
+import { db } from "../Firebase";
+import { useState, useEffect } from "react";
+import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 
 function sendConfirmationEmail(name, email, destination) {
   const templateParams = {
@@ -42,6 +44,7 @@ function sendConfirmationEmail(name, email, destination) {
 const PlaceInfo = () => {
   const [filtered, setFiltered] = useState(false);
   const [filteredData, setFilteredData] = useState(null);
+  const [bookings, setBookings] = useState("")
 
   const route = useRoute();
   const selectedId = route.params.id;
@@ -52,12 +55,13 @@ const PlaceInfo = () => {
   const dispatch = useDispatch();
   const likedPlaces = useSelector((state) => state.like.liked);
   const isLiked = likedPlaces.includes(selectedPlaceData.name);
-
-  const bookedPlaces = useSelector((state) => state.book.bookings);
-  const isBooked = bookedPlaces.includes(selectedPlaceData.name);
+  const selectedPlaceName = selectedPlaceData.name
 
   const user = useSelector((state) => state.user);
-  const userEmail = user.user.email;
+  const userEmail = user.user?.email;
+
+  const isBooked = bookings.includes(selectedPlaceData.name);
+
 
   const handleLike = () => {
     if (isLiked) {
@@ -66,6 +70,24 @@ const PlaceInfo = () => {
       dispatch(liked(selectedPlaceData.name));
     }
   };
+
+  useEffect(() => {
+    gettingData()
+  }, []);
+
+  const gettingData = async() => {
+    const docRef = doc(db, "Bookings", userEmail);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setBookings(docSnap.data().destinations)
+    } else {
+    }
+  }
+
+  const bookingRef = doc(db, "Bookings", userEmail);
+  const bookingDestination = async() => {
+    updateDoc(bookingRef, {destinations: arrayUnion(selectedPlaceName)})
+  }
 
   const handleFilter = (genre) => {
     setFilteredData(todoData.filter((type) => type.genre == genre));
@@ -76,9 +98,15 @@ const PlaceInfo = () => {
   const handleBook = () => {
     if (isBooked) {
       dispatch(canceled(selectedPlaceData.name));
+      updateDoc(bookingRef, {destinations: arrayRemove(selectedPlaceName)}).then(
+        () => {
+          alert("Booking Cancelled")
+        }
+      )
     } else {
       dispatch(booked(selectedPlaceData.name));
       sendConfirmationEmail("User", userEmail, selectedPlaceData.name);
+      bookingDestination()
     }
   };
 

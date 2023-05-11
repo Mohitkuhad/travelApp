@@ -22,6 +22,7 @@ const ImageCard = ({ selectedPlace, name, price, image }) => {
     }
   }
 
+
   return (
     <View style={styles.Container}>
       <Image style={styles.Image} source={{uri : image}} />

@@ -11,6 +11,7 @@ import PlaceInfo from "./Screens/PlaceInfo";
 import store from "./store/store";
 import Login from "./Screens/Login";
 import SignUp from "./Screens/SignUp";
+import "react-native-gesture-handler";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -18,7 +19,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"
             component={Home}

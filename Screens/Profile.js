@@ -10,6 +10,9 @@ import { FontAwesome } from "@expo/vector-icons";
 import Footer from "../Components/Footer";
 import SearchCards from "../Components/SearchCards";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase";
 
 const SearchCardsData = [
   {
@@ -36,16 +39,32 @@ const SearchCardsData = [
 
 const Profile = ({ navigation }) => {
   const likedPlacesObj = useSelector((state) => state.like);
-  const bookings = useSelector((state) => state.book)
-  const user = useSelector((state) => state.user)
-  
+  const user = useSelector((state) => state.user);
+  const userEmail = user.user;
+  const [bookingsLength, setBookingsLength] = useState([])
+
+
+  useEffect(() => {
+    gettingData()
+  }, []);
+
+  const gettingData = async() => {
+    const docRef = doc(db, "Bookings", "mohitkuhad8@gmail.com");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setBookingsLength(docSnap.data().destinations)
+      console.log(bookingsLength)
+    } else {
+    }
+  }
+
   return (
     <SafeAreaView style={styles.Container}>
       <ScrollView>
         <View style={styles.Hero}>
           <View style={styles.userNameContainer}>
             <FontAwesome name="user-circle-o" size={60} color="#808080" />
-            <Text style={styles.UserName}>{user.user?.email}</Text>
+            <Text style={styles.UserName}>{userEmail?.email}</Text>
             <TouchableOpacity style={styles.editButton}>
               <Text>Edit Profile</Text>
             </TouchableOpacity>
@@ -55,14 +74,18 @@ const Profile = ({ navigation }) => {
               style={styles.milestone}
               onPress={() => navigation.navigate("Liked")}
             >
-              <Text style={styles.milestoneNumber}>{likedPlacesObj.liked.length}</Text>
+              <Text style={styles.milestoneNumber}>
+                {likedPlacesObj.liked.length}
+              </Text>
               <Text>Liked</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.milestone}
               onPress={() => navigation.navigate("Find")}
             >
-              <Text style={styles.milestoneNumber}>{bookings.bookings.length}</Text>
+              <Text style={styles.milestoneNumber}>
+                {bookingsLength.length}
+              </Text>
               <Text>Bookings</Text>
             </TouchableOpacity>
           </View>

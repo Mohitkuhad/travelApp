@@ -12,16 +12,19 @@ import placeData from "../data/placeData";
 import { Entypo } from "@expo/vector-icons";
 import ImageCard from "../Components/ImageCard";
 
-
-
 const Find = () => {
   return (
     <SafeAreaView style={styles.Container}>
+
       <ScrollView>
         <View style={styles.HeroContainer}>
           <Text style={styles.H1}>Find your{"\n"}favourite place</Text>
           <TouchableOpacity style={styles.notificationButton}>
-            <Entypo name="menu" size={30} color="black" />
+            <Entypo
+              name="menu"
+              size={30}
+              color="black"
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.ContinentCardContainer}>
@@ -58,9 +61,7 @@ const styles = StyleSheet.create({
   H1: {
     fontSize: 30,
   },
-  notificationButton: {
-    
-  },
+  notificationButton: {},
   ContinentContainer: {
     marginTop: 18,
     paddingLeft: 10,

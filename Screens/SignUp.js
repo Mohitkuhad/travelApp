@@ -6,39 +6,36 @@ import {
   StyleSheet,
   Image,
   View,
-  Button,
+  ActivityIndicator,
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import auth from "../Firebase";
-import {
-  createUserWithEmailAndPassword,
-  updateCurrentUser,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useDispatch } from "react-redux";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const handleClick = () => {
+    setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         const user = auth().currentUser;
-        user.updateProfile({
-          displayName: Name,
-        });
-        console.log(user);
         dispatch(login(user));
+        setLoading(false)
         navigation.navigate("Find");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
+        alert(errorCode);
+        setLoading(false);
       });
   };
   return (
@@ -78,7 +75,11 @@ const SignUp = () => {
           />
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.loginButton} onPress={handleClick}>
-              <Text style={styles.loginText}>Sign Up</Text>
+              {loading ? (
+                <ActivityIndicator size="small" color="black" />
+              ) : (
+                <Text style={styles.loginText}>Sign Up</Text>
+              )}
             </TouchableOpacity>
           </View>
           <View style={styles.createContainer}>

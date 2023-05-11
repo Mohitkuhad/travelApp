@@ -5,7 +5,7 @@ import {
   TextInput,
   StyleSheet,
   View,
-  Button,
+  ActivityIndicator,
   Image,
 } from "react-native";
 import { useState } from "react";
@@ -22,20 +22,24 @@ import { useNavigation } from "@react-navigation/native";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const handleClick = () => {
+    setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         dispatch(login(user));
         navigation.navigate("Find");
+        setLoading(false);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         alert(errorMessage);
+        setLoading(false);
       });
   };
 
@@ -90,7 +94,11 @@ const Login = () => {
               <Text style={styles.forgotText}>Forgot Password?</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.loginButton} onPress={handleClick}>
-              <Text style={styles.loginText}>Login</Text>
+              {loading ? (
+                <ActivityIndicator size="small" color="black" />
+              ) : (
+                <Text style={styles.loginText}>Login</Text>
+              )}
             </TouchableOpacity>
           </View>
           <View style={styles.createContainer}>

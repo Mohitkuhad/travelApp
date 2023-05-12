@@ -40,6 +40,7 @@ function sendConfirmationEmail(name, email, destination) {
     )
     .then(
       (result) => {
+        setLoading(false);
         alert("Confirmation Email Sent");
       },
       (error) => {
@@ -97,7 +98,6 @@ const PlaceInfo = () => {
       destinations: arrayUnion(selectedPlaceName),
     }).then(() => {
       gettingData()
-      setLoading(false);
     });
   };
 

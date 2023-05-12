@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
   bgGradient: {
     position: "absolute",
     bottom: 0,
-    zIndex: "-1",
+    zIndex: -1,
   },
 });

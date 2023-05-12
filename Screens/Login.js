@@ -17,7 +17,6 @@ import {
 import { useDispatch } from "react-redux";
 import { login } from "../store/UserSlice";
 import { useNavigation } from "@react-navigation/native";
-//import ToastManager, { Toast } from 'toastify-react-native'
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -30,7 +29,9 @@ const Login = () => {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        const user = {
+          email: userCredential.user.email,
+        }
         dispatch(login(user));
         navigation.navigate("Find");
         setLoading(false);

@@ -56,8 +56,6 @@ const Profile = ({ navigation }) => {
     } else {
     }
   }
-  console.log("bookings", bookingsLength)
-  console.log(userEmail)
 
   return (
     <SafeAreaView style={styles.Container}>

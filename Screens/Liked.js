@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, View, Text, StyleSheet, Image } from "react-native";
+import { SafeAreaView, View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import Footer from "../Components/Footer";
 import { Entypo } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -35,7 +35,6 @@ const Liked = () => {
     setLikedPlaceData(data);
   }, [likedPlaces]);
 
-
   return (
     <>
       {empty ? (
@@ -44,7 +43,7 @@ const Liked = () => {
         <SafeAreaView style={styles.Container}>
           <Text style={styles.H1}>Here is the list of your Liked places</Text>
           <View style={styles.emptyContainer}>
-            <View>
+            <ScrollView contentContainerStyle={styles.likedDataContainer}>
               {likedPlaceData.map((name) => (
                 <View style={styles.likedPlaceContainer} key={name.id}>
                   <Image
@@ -67,7 +66,7 @@ const Liked = () => {
                   </View>
                 </View>
               ))}
-            </View>
+            </ScrollView>
           </View>
         </SafeAreaView>
       )}
@@ -104,6 +103,11 @@ const styles = StyleSheet.create({
     padding: 14,
     borderWidth: 1,
     borderRadius: "100%",
+  },
+  likedDataContainer: {
+    width: "100%",
+    justifyContent: "center",
+    marginTop: 10,
   },
   likedPlaceContainer: {
     width: "90%",

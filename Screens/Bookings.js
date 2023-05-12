@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, View, Text, StyleSheet, Image } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+} from "react-native";
 import Footer from "../Components/Footer";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import placeData from "../data/placeData";
 
 const EmptyPage = () => {
   return (
@@ -18,19 +26,29 @@ const EmptyPage = () => {
 const Bookings = () => {
   const [empty, setEmpty] = useState(false);
   const [bookingData, setBookingData] = useState([]);
+  const [moreData, setMoreData] = useState([]);
 
   useEffect(() => {
     gettingData();
   }, []);
 
+  useEffect(() => {
+    if (bookingData.length > 0) {
+      setEmpty(false);
+    }
+    const data = bookingData
+      .map((name) => placeData.filter((place) => place.name === name))
+      .flat();
+    setMoreData(data);
+  }, [bookingData]);
+
   const gettingData = async () => {
     const docRef = doc(db, "Bookings", "mohitkuhad8@gmail.com");
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      setBookingData(docSnap.data());
-      console.log(bookingData);
+      setBookingData(docSnap.data().destinations);
     } else {
-        setEmpty(true);
+      setEmpty(true);
     }
   };
 
@@ -42,11 +60,11 @@ const Bookings = () => {
         <SafeAreaView style={styles.Container}>
           <Text style={styles.H1}>Here is the list of your Bookings</Text>
           <View style={styles.emptyContainer}>
-            <View>
-              {/* {bookingData.map((name) => (
-                <View style={styles.likedPlaceContainer} key={name.id}>
+            <ScrollView contentContainerStyle={styles.bookDataContainer}>
+              {moreData.map((name) => (
+                <View style={styles.bookedPlaceContainer} key={name.id}>
                   <Image
-                    style={styles.likedPlaceImage}
+                    style={styles.bookedPlaceImage}
                     source={{
                       uri: name.coverImage,
                     }}
@@ -64,8 +82,8 @@ const Bookings = () => {
                     </Text>
                   </View>
                 </View>
-              ))} */}
-            </View>
+              ))}
+            </ScrollView>
           </View>
         </SafeAreaView>
       )}
@@ -103,7 +121,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: "100%",
   },
-  likedPlaceContainer: {
+  bookDataContainer: {
+    width: "100%",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  bookedPlaceContainer: {
     width: "90%",
     height: 100,
     flexDirection: "row",
@@ -111,7 +134,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
   },
-  likedPlaceImage: {
+  bookedPlaceImage: {
     width: "40%",
     height: "100%",
     borderBottomLeftRadius: 10,

@@ -49,14 +49,15 @@ const Profile = ({ navigation }) => {
   }, []);
 
   const gettingData = async() => {
-    const docRef = doc(db, "Bookings", "mohitkuhad8@gmail.com");
+    const docRef = doc(db, "Bookings", userEmail?.email);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       setBookingsLength(docSnap.data().destinations)
-      console.log(bookingsLength)
     } else {
     }
   }
+  console.log("bookings", bookingsLength)
+  console.log(userEmail)
 
   return (
     <SafeAreaView style={styles.Container}>
@@ -81,7 +82,7 @@ const Profile = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.milestone}
-              onPress={() => navigation.navigate("Find")}
+              onPress={() => navigation.navigate("Bookings")}
             >
               <Text style={styles.milestoneNumber}>
                 {bookingsLength.length}

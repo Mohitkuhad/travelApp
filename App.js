@@ -11,6 +11,7 @@ import PlaceInfo from "./Screens/PlaceInfo";
 import store from "./store/store";
 import Login from "./Screens/Login";
 import SignUp from "./Screens/SignUp";
+import Bookings from "./Screens/Bookings";
 import "react-native-gesture-handler";
 
 export default function App() {
@@ -58,6 +59,13 @@ export default function App() {
           <Stack.Screen
             name="Liked"
             component={Liked}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Bookings"
+            component={Bookings}
             options={{
               headerShown: false,
             }}

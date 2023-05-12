@@ -33,7 +33,7 @@ const Find = () => {
               key={item.id}
               name={item.name}
               price={item.price}
-              image={item.converImage}
+              image={item.coverImage}
               selectedPlace={item.id}
             />
           ))}

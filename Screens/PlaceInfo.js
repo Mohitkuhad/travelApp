@@ -93,11 +93,12 @@ const PlaceInfo = () => {
 
   const bookingRef = doc(db, "Bookings", userEmail);
   const bookingDestination = async () => {
-    updateDoc(bookingRef, { destinations: arrayUnion(selectedPlaceName) }).then(
-      () => {
-        setLoading(false)
-      }
-    )
+    await updateDoc(bookingRef, {
+      destinations: arrayUnion(selectedPlaceName),
+    }).then(() => {
+      gettingData()
+      setLoading(false);
+    });
   };
 
   const handleFilter = (genre) => {
@@ -114,15 +115,16 @@ const PlaceInfo = () => {
         destinations: arrayRemove(selectedPlaceName),
       })
         .then(() => {
-          setLoading(false)
+          setLoading(false);
         })
         .then(() => {
+          gettingData();
           alert("Booking Cancelled");
         });
     } else {
       dispatch(booked(selectedPlaceData.name));
       sendConfirmationEmail("User", userEmail, selectedPlaceData.name);
-      bookingDestination()
+      bookingDestination();
     }
   };
 
@@ -130,7 +132,7 @@ const PlaceInfo = () => {
     <ScrollView style={styles.Container}>
       <View style={styles.Hero}>
         <Image
-          source={{ uri: selectedPlaceData.converImage }}
+          source={{ uri: selectedPlaceData.coverImage }}
           style={styles.HeroImage}
         />
         <Image

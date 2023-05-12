@@ -1,40 +1,38 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView, View, Text, StyleSheet, Image } from "react-native";
 import Footer from "../Components/Footer";
-import { Entypo } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
-import placeData from "../data/placeData";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase";
 
 const EmptyPage = () => {
   return (
     <SafeAreaView style={styles.Container}>
-      <Text style={styles.H1}>Here is the list of your Liked places</Text>
+      <Text style={styles.H1}>Here is the list of your Bookings</Text>
       <View style={styles.emptyContainer}>
-        <View style={styles.icon}>
-          <Entypo name="heart-outlined" size={25} color="black" />
-        </View>
-        <Text style={styles.h2}>You haven't liked any places</Text>
+        <Text style={styles.h2}>You don't have any bookings</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-const Liked = () => {
-  const [empty, setEmpty] = useState(true);
-  const [likedPlaceData, setLikedPlaceData] = useState([]);
-  const likedPlacesObj = useSelector((state) => state.like);
-  const likedPlaces = likedPlacesObj.liked;
+const Bookings = () => {
+  const [empty, setEmpty] = useState(false);
+  const [bookingData, setBookingData] = useState([]);
 
   useEffect(() => {
-    if (likedPlaces.length > 0) {
-      setEmpty(false);
-    }
-    const data = likedPlaces
-      .map((name) => placeData.filter((place) => place.name === name))
-      .flat();
-    setLikedPlaceData(data);
-  }, [likedPlaces]);
+    gettingData();
+  }, []);
 
+  const gettingData = async () => {
+    const docRef = doc(db, "Bookings", "mohitkuhad8@gmail.com");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setBookingData(docSnap.data());
+      console.log(bookingData);
+    } else {
+        setEmpty(true);
+    }
+  };
 
   return (
     <>
@@ -42,10 +40,10 @@ const Liked = () => {
         <EmptyPage />
       ) : (
         <SafeAreaView style={styles.Container}>
-          <Text style={styles.H1}>Here is the list of your Liked places</Text>
+          <Text style={styles.H1}>Here is the list of your Bookings</Text>
           <View style={styles.emptyContainer}>
             <View>
-              {likedPlaceData.map((name) => (
+              {/* {bookingData.map((name) => (
                 <View style={styles.likedPlaceContainer} key={name.id}>
                   <Image
                     style={styles.likedPlaceImage}
@@ -66,7 +64,7 @@ const Liked = () => {
                     </Text>
                   </View>
                 </View>
-              ))}
+              ))} */}
             </View>
           </View>
         </SafeAreaView>
@@ -76,7 +74,7 @@ const Liked = () => {
   );
 };
 
-export default Liked;
+export default Bookings;
 
 const styles = StyleSheet.create({
   Container: {

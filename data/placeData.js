@@ -3,7 +3,7 @@ export default  [
     id: 1,
     name: "Delhi",
     price: "₹ 15,000/person",
-    converImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139685/Apps/TravelApp/Places/Delhi_fdmzqs.jpg",
+    coverImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139685/Apps/TravelApp/Places/Delhi_fdmzqs.jpg",
     todoData: [
       {
         id: 1,
@@ -155,7 +155,7 @@ export default  [
     id: 2,
     name: "Jaipur",
     price: "₹ 15,000/person",
-    converImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139687/Apps/TravelApp/Places/Jaipur_g2esia.jpg",
+    coverImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139687/Apps/TravelApp/Places/Jaipur_g2esia.jpg",
     todoData: [
       {
         id: 1,
@@ -188,7 +188,7 @@ export default  [
     id: 3,
     name: "Agra",
     price: "₹ 15,000/person",
-    converImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139687/Apps/TravelApp/Places/Agra_yisvaf.png",
+    coverImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139687/Apps/TravelApp/Places/Agra_yisvaf.png",
     todoData: [
       {
         id: 1,
@@ -208,7 +208,7 @@ export default  [
     id: 4,
     name: "Jaisalmer",
     price: "₹ 15,000/person",
-    converImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139690/Apps/TravelApp/Places/Jaisalmer_xaved1.jpg",
+    coverImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139690/Apps/TravelApp/Places/Jaisalmer_xaved1.jpg",
     todoData: [
       {
         id: 1,
@@ -271,7 +271,7 @@ export default  [
   {
     id: 6,
     name: "Punjab",
-    converImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139687/Apps/TravelApp/Places/Punjab_uklvyn.jpg",
+    coverImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139687/Apps/TravelApp/Places/Punjab_uklvyn.jpg",
     price: "₹ 15,000/person",
     todoData: [
       {
@@ -303,7 +303,7 @@ export default  [
   {
     id: 7,
     name: "Uttrakhand",
-    converImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139688/Apps/TravelApp/Places/Uttarakhand_yetyqb.jpg",
+    coverImage: "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139688/Apps/TravelApp/Places/Uttarakhand_yetyqb.jpg",
     price: "₹ 15,000/person",
     todoData: [
       {

@@ -12,7 +12,6 @@ import { useRoute } from "@react-navigation/native";
 import placeData from "../data/placeData";
 import { useDispatch, useSelector } from "react-redux";
 import { liked, unliked } from "../store/LikeSlice";
-import { booked, canceled } from "../store/BookingSlice";
 import emailjs from "emailjs-com";
 import { db } from "../Firebase";
 import { useState, useEffect } from "react";
@@ -110,7 +109,6 @@ const PlaceInfo = () => {
   const handleBook = () => {
     setLoading(true);
     if (isBooked) {
-      dispatch(canceled(selectedPlaceData.name));
       updateDoc(bookingRef, {
         destinations: arrayRemove(selectedPlaceName),
       })
@@ -122,7 +120,6 @@ const PlaceInfo = () => {
           alert("Booking Cancelled");
         });
     } else {
-      dispatch(booked(selectedPlaceData.name));
       sendConfirmationEmail("User", userEmail, selectedPlaceData.name);
       bookingDestination();
     }

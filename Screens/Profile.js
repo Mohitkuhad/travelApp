@@ -43,7 +43,6 @@ const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const likedPlacesObj = useSelector((state) => state.like);
   const user = useSelector((state) => state.user);
-  console.log(user.user)
   const userEmail = user.user;
   const [bookingsLength, setBookingsLength] = useState([]);
 

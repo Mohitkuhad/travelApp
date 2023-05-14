@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/UserSlice";
 
 const SearchCardsData = [
   {
@@ -38,24 +40,30 @@ const SearchCardsData = [
 ];
 
 const Profile = ({ navigation }) => {
+  const dispatch = useDispatch();
   const likedPlacesObj = useSelector((state) => state.like);
   const user = useSelector((state) => state.user);
+  console.log(user.user)
   const userEmail = user.user;
-  const [bookingsLength, setBookingsLength] = useState([])
-
+  const [bookingsLength, setBookingsLength] = useState([]);
 
   useEffect(() => {
-    gettingData()
+    gettingData();
   }, []);
 
-  const gettingData = async() => {
-    const docRef = doc(db, "Bookings", userEmail?.email);
+  const gettingData = async () => {
+    const docRef = doc(db, "Bookings", userEmail);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      setBookingsLength(docSnap.data().destinations)
+      setBookingsLength(docSnap.data().destinations);
     } else {
     }
-  }
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigation.navigate("Login");
+  };
 
   return (
     <SafeAreaView style={styles.Container}>
@@ -63,10 +71,15 @@ const Profile = ({ navigation }) => {
         <View style={styles.Hero}>
           <View style={styles.userNameContainer}>
             <FontAwesome name="user-circle-o" size={60} color="#808080" />
-            <Text style={styles.UserName}>{userEmail?.email}</Text>
-            <TouchableOpacity style={styles.editButton}>
-              <Text>Edit Profile</Text>
-            </TouchableOpacity>
+            <Text style={styles.UserName}>{userEmail}</Text>
+            <View style={styles.ButtonContainer}>
+              <TouchableOpacity style={styles.editButton} onPress={() => handleLogout()}>
+                <Text>Logout</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.editButton}>
+                <Text>Edit Profile</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.userMilestone}>
             <TouchableOpacity
@@ -123,6 +136,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginTop: 10,
   },
+  ButtonContainer: {
+    flexDirection: "row",
+    gap: 10,
+  },
   editButton: {
     borderWidth: 1,
     paddingHorizontal: 10,
@@ -147,5 +164,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     gap: 10,
+  },
+  logoutContainer: {
+    width: "100%",
+    alignItems: "center",
+    paddingVertical: 10,
   },
 });

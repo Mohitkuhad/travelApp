@@ -66,7 +66,7 @@ const PlaceInfo = () => {
   const selectedPlaceName = selectedPlaceData.name;
 
   const user = useSelector((state) => state.user);
-  const userEmail = user.user?.email;
+  const userEmail = user.user;
 
   const isBooked = bookings.includes(selectedPlaceData.name);
 
@@ -96,7 +96,7 @@ const PlaceInfo = () => {
     await updateDoc(bookingRef, {
       destinations: arrayUnion(selectedPlaceName),
     }).then(() => {
-      gettingData()
+      gettingData();
     });
   };
 
@@ -124,6 +124,31 @@ const PlaceInfo = () => {
       bookingDestination();
     }
   };
+
+  function sendConfirmationEmail(name, email, destination) {
+    const templateParams = {
+      to_name: name,
+      to_email: email,
+      destination: destination,
+    };
+
+    emailjs
+      .send(
+        "service_cnx0ylg",
+        "template_7ymugr8",
+        templateParams,
+        "6WeiBNfq4bJ3EireN"
+      )
+      .then(
+        (result) => {
+          setLoading(false);
+          alert("Confirmation Email Sent");
+        },
+        (error) => {
+          alert(error.text);
+        }
+      );
+  }
 
   return (
     <ScrollView style={styles.Container}>

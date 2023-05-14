@@ -14,7 +14,7 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { login } from "../store/UserSlice";
 import { useNavigation } from "@react-navigation/native";
 
@@ -25,14 +25,15 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+
   const handleClick = () => {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = {
           email: userCredential.user.email,
-        }
-        dispatch(login(user));
+        };
+        dispatch(login(userCredential.user.email))
         navigation.navigate("Find");
         setLoading(false);
       })

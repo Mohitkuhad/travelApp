@@ -6,8 +6,18 @@ import {
   StyleSheet,
   Touchable,
 } from "react-native";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Home = ({ navigation }) => {
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user.user) {
+      navigation.navigate("Find");
+    }
+    }, [user.user]);
+
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/Home/1.jpg")} />

@@ -1,12 +1,27 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import { combineReducers } from "redux";
 import likeReducer from "./LikeSlice";
-import userReducer from './UserSlice';
+import userReducer from "./UserSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const store = configureStore({
-    reducer: {
-        like: likeReducer,
-        user: userReducer,
-    }
-})
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage,
+  whitelist: ["like", "user"],
+};
 
-export default store
+const rootReducer = combineReducers({
+  like: likeReducer,
+  user: userReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+});
+
+export const persistor = persistStore(store);
+
+export default { store, persistor };

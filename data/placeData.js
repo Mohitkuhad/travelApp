@@ -4,7 +4,7 @@ export default [
     name: "Delhi",
     price: "₹ 15,000/person",
     coverImage:
-      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139685/Apps/TravelApp/Places/Delhi_fdmzqs.jpg",
+      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684244597/Apps/TravelApp/Places/Delhi_fdmzqs_fe5wpt.jpg",
     todoData: [
       {
         id: 1,
@@ -52,126 +52,126 @@ export default [
         id: 7,
         name: "Tughlaqbad Fort",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497457/Apps/TravelApp/Places/HiddenGemDelhi/TughlaqabadFort_ssimba.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245180/Apps/TravelApp/Places/Delhi/HiddenGem/TughlaqabadFort_ssimba_l153cz.jpg",
         genre: "Hidden",
       },
       {
         id: 8,
         name: "Archaeological Park",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497457/Apps/TravelApp/Places/HiddenGemDelhi/MehrauliArchaeologicalPark_tnnh4g.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/MehrauliArchaeologicalPark_tnnh4g_ild7dt.jpg",
         genre: "Hidden",
       },
       {
         id: 9,
         name: "Sunder Nursery",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497457/Apps/TravelApp/Places/HiddenGemDelhi/Sundernursery_p4xoer.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245180/Apps/TravelApp/Places/Delhi/HiddenGem/Sundernursery_p4xoer_noflqz.jpg",
         genre: "Hidden",
       },
       {
         id: 10,
         name: "Handloom Museum",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497457/Apps/TravelApp/Places/HiddenGemDelhi/NationalHandicraftsHandloomsMuseum_oa4e4m.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/NationalHandicraftsHandloomsMuseum_oa4e4m_wmvwgp.jpg",
         genre: "Hidden",
       },
       {
         id: 11,
         name: "Sanjay Van",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497456/Apps/TravelApp/Places/HiddenGemDelhi/SanjayVan_oduwnh.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/SanjayVan_oduwnh_tckclh.jpg",
         genre: "Hidden",
       },
       {
         id: 12,
         name: "Rose Cafe",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497456/Apps/TravelApp/Places/HiddenGemDelhi/Rosecafe_dgarkv.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/Rosecafe_dgarkv_m0ldaw.jpg",
         genre: "Hidden",
       },
       {
         id: 13,
         name: "Nizamuddin Basti",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497456/Apps/TravelApp/Places/HiddenGemDelhi/NizamuddinBasti_bcrjvy.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/NizamuddinBasti_bcrjvy_tv29jq.jpg",
         genre: "Hidden",
       },
       {
         id: 14,
         name: "Nahargarh Fort",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497456/Apps/TravelApp/Places/HiddenGemDelhi/NaharGarhFort_ubtd4g.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/NaharGarhFort_ubtd4g_vjqqmw.jpg",
         genre: "Hidden",
       },
       {
         id: 15,
         name: "Mughal Garden",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497456/Apps/TravelApp/Places/HiddenGemDelhi/mugalgarden_vmjxeb.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/mugalgarden_vmjxeb_mgb6pq.jpg",
         genre: "Hidden",
       },
       {
         id: 16,
         name: "Garden of Five Senses",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497455/Apps/TravelApp/Places/HiddenGemDelhi/GardenofFiveSenses_jrytfc.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245178/Apps/TravelApp/Places/Delhi/HiddenGem/GardenofFiveSenses_jrytfc_ioreq4.jpg",
         genre: "Hidden",
       },
       {
         id: 17,
         name: "Kirki Masjid",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497456/Apps/TravelApp/Places/HiddenGemDelhi/KhirkiMasjid_st4618.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/KhirkiMasjid_st4618_y9q0ic.jpg",
         genre: "Hidden",
       },
       {
         id: 18,
         name: "Dilli Haat",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497455/Apps/TravelApp/Places/HiddenGemDelhi/DilliHaat_doxk7h.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245178/Apps/TravelApp/Places/Delhi/HiddenGem/DilliHaat_doxk7h_crzpfv.jpg",
         genre: "Hidden",
       },
       {
         id: 19,
         name: "Majnu Ka Tila",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497456/Apps/TravelApp/Places/HiddenGemDelhi/MajnuKaTilla_cyg38z.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/MajnuKaTilla_cyg38z_zdm6ba.jpg",
         genre: "Hidden",
       },
       {
         id: 20,
         name: "Lodi Art",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497455/Apps/TravelApp/Places/HiddenGemDelhi/LodhiArtDistrict_pjs3rf.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245179/Apps/TravelApp/Places/Delhi/HiddenGem/LodhiArtDistrict_pjs3rf_znfima.jpg",
         genre: "Hidden",
       },
       {
         id: 21,
         name: "Champa Gali",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497455/Apps/TravelApp/Places/HiddenGemDelhi/ChampaGali_f1180z.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245178/Apps/TravelApp/Places/Delhi/HiddenGem/ChampaGali_f1180z_fyrgpq.jpg",
         genre: "Hidden",
       },
       {
         id: 22,
         name: "Haus Khaz Village",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497455/Apps/TravelApp/Places/HiddenGemDelhi/HauzKhasVillage_wuoyul.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245178/Apps/TravelApp/Places/Delhi/HiddenGem/HauzKhasVillage_wuoyul_xh5qpp.jpg",
         genre: "Hidden",
       },
       {
         id: 23,
         name: "Buddha Garden",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497455/Apps/TravelApp/Places/HiddenGemDelhi/BuddhaGarden_yt9o4q.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245178/Apps/TravelApp/Places/Delhi/HiddenGem/BuddhaGarden_yt9o4q_rjy13s.jpg",
         genre: "Hidden",
       },
       {
         id: 24,
         name: "Agrasel ki Baoli",
         image:
-          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683497455/Apps/TravelApp/Places/HiddenGemDelhi/AgrasenkiBaoli_vangqv.jpg",
+          "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684245178/Apps/TravelApp/Places/Delhi/HiddenGem/AgrasenkiBaoli_vangqv_idk6v9.jpg",
         genre: "Hidden",
       },
     ],
@@ -181,7 +181,7 @@ export default [
     name: "Jaipur",
     price: "₹ 15,000/person",
     coverImage:
-      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139687/Apps/TravelApp/Places/Jaipur_g2esia.jpg",
+      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684244597/Apps/TravelApp/Places/Jaipur_g2esia_rb2hwq.jpg",
     todoData: [
       {
         id: 1,
@@ -214,7 +214,7 @@ export default [
     name: "Agra",
     price: "₹ 15,000/person",
     coverImage:
-      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139687/Apps/TravelApp/Places/Agra_yisvaf.png",
+      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684244598/Apps/TravelApp/Places/Agra_yisvaf_qqzc8v.png",
     todoData: [
       {
         id: 1,
@@ -235,7 +235,7 @@ export default [
     name: "Jaisalmer",
     price: "₹ 15,000/person",
     coverImage:
-      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139690/Apps/TravelApp/Places/Jaisalmer_xaved1.jpg",
+      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684244597/Apps/TravelApp/Places/Jaisalmer_xaved1_kiyb0a.jpg",
     todoData: [
       {
         id: 1,
@@ -268,7 +268,7 @@ export default [
     name: "Ladakh",
     price: "₹ 15,000/person",
     coverImage:
-      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139695/Apps/TravelApp/Places/Ladakh_q8dzit.jpg",
+      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684244597/Apps/TravelApp/Places/Ladakh_q8dzit_gusmhz.jpg",
     todoData: [
       {
         id: 1,
@@ -300,7 +300,7 @@ export default [
     id: 6,
     name: "Punjab",
     coverImage:
-      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139687/Apps/TravelApp/Places/Punjab_uklvyn.jpg",
+      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684244597/Apps/TravelApp/Places/Punjab_uklvyn_dfy1ek.jpg",
     price: "₹ 15,000/person",
     todoData: [
       {
@@ -333,7 +333,7 @@ export default [
     id: 7,
     name: "Uttrakhand",
     coverImage:
-      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1683139688/Apps/TravelApp/Places/Uttarakhand_yetyqb.jpg",
+      "https://res.cloudinary.com/dlqpxszzo/image/upload/v1684244597/Apps/TravelApp/Places/Uttarakhand_yetyqb_azskbx.jpg",
     price: "₹ 15,000/person",
     todoData: [
       {
